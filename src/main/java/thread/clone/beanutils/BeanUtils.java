@@ -1,4 +1,4 @@
-package Thread.clone.beanutils;
+package thread.clone.beanutils;
 
 public class BeanUtils {
 }

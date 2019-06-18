@@ -89,8 +89,15 @@ public class ExcleUtils {
         String s= "vinlist";
         System.out.println(s.substring(0,1).toUpperCase()+s.substring(1));*/
 
-       ExcleUtils excleUtils = new ExcleUtils();
-       excleUtils.readExcleCarData("D:\\副本GE11互博车造车信息0530.xlsx");
+       /*ExcleUtils excleUtils = new ExcleUtils();
+       excleUtils.readExcleCarData("D:\\副本GE11互博车造车信息0530.xlsx");*/
+       CarBaseInfo base = new CarBaseInfo();
+        Field[] declaredFields = base.getClass().getDeclaredFields();
+        for (Field filedname:declaredFields){
+            System.out.println(filedname.getName());
+        }
+        System.out.println(declaredFields.length);
+
     }
 
 }

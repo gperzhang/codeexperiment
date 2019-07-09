@@ -18,13 +18,26 @@ public class TestRegex {
         String dateRegx = "[1-9]\\d{0,3}-(1[0-2]|0?[1-9])-(3[01]|[12]?\\d|0?[1-9])";
         String reg = "\\w{8,10}";
         String s = "2019_09_08";
+        
         String x = "1-2*((60-30+(-40/5)*(9-2*5/3+7/3*99/4*2998+10*568/14))-(-4*3)/(16-3*2))";
-        String regx1 = "\\( [^()]\\)";
-        //System.out.println(s.matches(reg));
-        //System.out.println(s.matches(regx));
+        String regx1 = "\\([^()]+\\)";
+
+        String data = "9-2*5/3+7/3*99/4*2998+10*568/14";
+        String regxdata = "\\d+[*/]\\d";
+
+        String regx2 = "([^\\[<]+?)";
+        String regx22 = "[^<]+";
+        String regex33 = "([^\\[\"']+?)";
+        String s2 = "1234";
+        System.out.println(s2.matches(regex33));
+
+        String x1 = "abc1234";
+        String sregx = "\\d+";
         Pattern pattern = Pattern.compile(regx1);
         Matcher matcher = pattern.matcher(x);
-        System.out.println(matcher.find());
+        while(matcher.find()){
+            System.out.println(matcher.group(0));
+        }
 
     }
 

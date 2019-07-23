@@ -16,7 +16,7 @@ import java.util.List;
 public class CuratorDemo {
         public static void main(String[] args) throws Exception {
             CuratorFramework curatorFramework = CuratorFrameworkFactory.builder().
-                    connectString("192.168.25.128:2181").sessionTimeoutMs(6000).
+                    connectString("192.168.245.128:2181").sessionTimeoutMs(6000).
                     authorization("digest","admin:admin".getBytes()).
                     retryPolicy(new ExponentialBackoffRetry(1000,5)).build();
             curatorFramework.start();

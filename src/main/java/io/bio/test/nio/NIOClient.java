@@ -32,7 +32,7 @@ public class NIOClient {
         try {
             socketChannel = SocketChannel.open();
             socketChannel.configureBlocking(false);
-            socketChannel.connect(new InetSocketAddress(8080));
+            socketChannel.connect(new InetSocketAddress("192.168.245.128",8080));
             selector = Selector.open();
             socketChannel.register(selector,SelectionKey.OP_READ );
             System.out.println(socketChannel.finishConnect());

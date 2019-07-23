@@ -8,14 +8,26 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class NIOServer {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         NIOServer nioServer = new NIOServer();
         nioServer.init();
         //监听客户端发送来的数据
         new Thread(new ListenClient(nioServer.selector)).start();
+        while (true){
+            Scanner scanner = new Scanner(System.in);
+            String word = scanner.nextLine();
+            ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+            byteBuffer.put(word.getBytes());
+            byteBuffer.flip();
+            nioServer.socketChannel.write(byteBuffer);
+            byteBuffer.clear();
+        }
+
     }
 
     private Selector selector;
+
+    private static SocketChannel socketChannel;
 
     public void init(){
         try {
@@ -36,13 +48,12 @@ public class NIOServer {
         }
     }
 
-    static class ListenClient implements Runnable{
+     static class ListenClient implements Runnable{
         private  Selector selector;
-
-        private SocketChannel socketChannel;
 
         public ListenClient(Selector selector){
             this.selector = selector;
+
         }
         @Override
         public void run() {
@@ -87,7 +98,7 @@ public class NIOServer {
                         allocate.get(bytes);
                         String msg = new String(bytes,"utf-8");
                         System.out.println("Client:"+msg);
-                        socketChannel.register(selector,SelectionKey.OP_WRITE);
+                        //socketChannel.register(selector,SelectionKey.OP_WRITE);
 
                     }else {
                         System.out.println("客户端关闭");
@@ -96,25 +107,26 @@ public class NIOServer {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }if(selectionKey.isWritable()){
-                try {
-                    socketChannel = (SocketChannel) selectionKey.channel();
-                    ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                    Scanner scanner = new Scanner(System.in);
-                    String readLine = scanner.nextLine();
-                    byteBuffer.put(readLine.getBytes());
-                    //把limit = position，position置为零，
-                    byteBuffer.flip();
-                    socketChannel.write(byteBuffer);
-                    //写完之后再注册为可读事件
-                    socketChannel.register(selector,SelectionKey.OP_READ);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-
             }
+//               if(selectionKey.isWritable()){
+//                try {
+//                    socketChannel = (SocketChannel) selectionKey.channel();
+//                    ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+//                    Scanner scanner = new Scanner(System.in);
+//                    String readLine = scanner.nextLine();
+//                    byteBuffer.put(readLine.getBytes());
+//                    //把limit = position，position置为零，
+//                    byteBuffer.flip();
+//                    socketChannel.write(byteBuffer);
+//                    //写完之后再注册为可读事件
+//                    socketChannel.register(selector,SelectionKey.OP_READ);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//
+//            }
         }
 
     }

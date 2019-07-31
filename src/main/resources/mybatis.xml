@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <!--定义mybatis的一些全局性设置-->
+    <!--<settings>-->
+    <!--<setting name="" value=""/>-->
+    <!--</settings>-->
+
+    <!--类型名称-->
+    <!--<typeAliases>-->
+    <!--<typeAlias type="" alias="" />-->
+    <!--</typeAliases>-->
+    <mappers>
+    </mappers>
+</configuration>

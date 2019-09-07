@@ -1,4 +1,4 @@
-package Thread.sychronized;
+package thread.sychronized;
 
 public class Demo implements Runnable{
     int x = 100;

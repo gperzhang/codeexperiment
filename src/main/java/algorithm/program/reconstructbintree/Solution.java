@@ -10,8 +10,8 @@ public class Solution {
         for(int i=0;i<in.length;i++){
             hashMap.put(in[i],i);
         }
-        reConstructBinaryTree(pre,0,pre.length-1,0);
-        return null;
+        return reConstructBinaryTree(pre,0,pre.length-1,0);
+
     }
     private TreeNode reConstructBinaryTree(int [] pre,int preL,int preR,int inL){
         if(preL>preR){

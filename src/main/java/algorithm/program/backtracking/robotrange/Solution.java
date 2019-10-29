@@ -6,7 +6,7 @@ package algorithm.program.backtracking.robotrange;
 public class Solution {
 
     int count = 0;
-    private int isRightMove(int k, int i, int j,int rows,int cols,int threshold) {
+    private int isRightMove(int rows,int cols,int threshold) {
 
         boolean [][] marked = new boolean[rows][cols];
         dfs(marked,rows,cols,0,0,threshold);
@@ -14,7 +14,7 @@ public class Solution {
     }
 
     private void dfs(boolean[][] marked,int rows,int cols, int r, int c,int threshold) {
-        if (r<0 || r>rows || c<0 || c>cols || marked[r][c])return;
+        if (r<0 || r>=rows || c<0 || c>=cols || marked[r][c])return;
         marked[r][c]=true;
         if(digitalSum(r,c)>threshold){
             return;
@@ -37,5 +37,9 @@ public class Solution {
             c/=10;
         }
         return sumCols+sumRows;
+    }
+
+    public static void main(String[] args) {
+        new Solution().isRightMove(20,20,15);
     }
 }

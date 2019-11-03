@@ -1,4 +1,4 @@
-package algorithm.program;
+package algorithm.program.countbits;
 
 import java.util.ArrayList;
 import java.util.List;

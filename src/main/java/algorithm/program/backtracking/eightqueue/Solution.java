@@ -1,4 +1,4 @@
-package algorithm.program.eightqueue;
+package algorithm.program.backtracking.eightqueue;
 
 /**
  * Created by zj on 2019-10-28

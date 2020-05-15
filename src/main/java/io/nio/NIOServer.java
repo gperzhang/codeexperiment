@@ -1,7 +1,5 @@
 package io.nio;
 
-import com.sun.xml.internal.stream.util.BufferAllocator;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;

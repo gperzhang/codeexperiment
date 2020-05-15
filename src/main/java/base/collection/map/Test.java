@@ -14,6 +14,7 @@ public class Test {
         HashMap<String,String> hashMap = new HashMap<>();
         LinkedHashMap<String,String> linkedHashMap = new LinkedHashMap<String, String>(16,0.75F,true);
 
+        System.out.println("key".hashCode());
         for (int i=0;i<10;i++){
             hashMap.put("key"+i,"value"+i);
             linkedHashMap.put("key"+i,"value"+i);

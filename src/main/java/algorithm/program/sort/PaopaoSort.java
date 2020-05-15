@@ -2,7 +2,7 @@ package algorithm.program.sort;
 
 /**
  * Created by zj on 2019-11-04
- * 时间复杂度O(N*N)是不稳定的排序算法，移动的次数最多为(1+n)n/2
+ * 时间复杂度O(N*N)是不稳定的排序算法，移动的次数最多为(n-1)n/2
  */
 public class PaopaoSort {
     public void sort(int [] arr){

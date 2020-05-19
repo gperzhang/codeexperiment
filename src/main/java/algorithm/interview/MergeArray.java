@@ -1,5 +1,7 @@
 package algorithm.interview;
 
+import java.util.Arrays;
+
 /**
  * Created by zj on 2020-05-19
  */
@@ -28,6 +30,7 @@ public class MergeArray {
             arr[count]= new int[]{intervals[start][0], intervals[end][1]};
             count++;
         }
-        return arr;
+        int[][] ints = Arrays.copyOf(arr, count);
+        return ints;
     }
 }

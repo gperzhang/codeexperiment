@@ -23,13 +23,19 @@ public class Solution07 {
         //{1,3,5,7, 2,4,6,8}
     }
     public static  void reOrderArray(int [] array) {
-        int index=0;
-        for(int i=0;i<array.length;i++){
-            if(i==0  && array[i] %2 !=0)index++;
-            if(array[i] %2 !=0 && i>index){
-                swap(array,i,index);
-                index++;
+        int i=0,startIndex = 0;
+        int j=array.length-1,endIndex = array.length-1;
+        while(i<array.length-1 && j>1){
+            while(array[i]%2!=0 && i>startIndex){
+                swap(array,i,++startIndex);
+                break;
             }
+            while (array[j]%2==0 && j<endIndex){
+                swap(array,j,--endIndex);
+                break;
+            }
+            i++;
+            j--;
         }
     }
 

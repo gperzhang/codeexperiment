@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class Solution07 {
 
     public static void main(String[] args) {
-        int [] arr = new int[]{1,2,3,4,5,6,7,8};
+        int [] arr = new int[]{1,2,3,4,5,6,7};
 
         reOrderArray(arr);
 
@@ -26,12 +26,20 @@ public class Solution07 {
         int i=0,startIndex = 0;
         int j=array.length-1,endIndex = array.length-1;
         while(i<array.length-1 && j>1){
-            while(array[i]%2!=0 && i>startIndex){
-                swap(array,i,++startIndex);
+            while(array[i]%2!=0){
+                if(i>startIndex){
+                    swap(array,i,startIndex++);
+                }else {
+                    startIndex++;
+                }
                 break;
             }
-            while (array[j]%2==0 && j<endIndex){
-                swap(array,j,--endIndex);
+            while (array[j]%2==0){
+                if(j<endIndex)
+                swap(array,j,endIndex--);
+                else {
+                    endIndex--;
+                }
                 break;
             }
             i++;

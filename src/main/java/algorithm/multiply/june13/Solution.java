@@ -2,6 +2,9 @@ package algorithm.multiply.june13;
 
 import algorithm.program.reconstructbintree.TreeNode;
 
+/**
+ * 递归解法
+ */
 public class Solution {
     public void Mirror(TreeNode root) {
         if(root!=null ){

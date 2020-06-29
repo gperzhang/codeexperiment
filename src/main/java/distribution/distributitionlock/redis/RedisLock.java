@@ -13,20 +13,20 @@ public class RedisLock {
     public RedisLock(){
 
     }
-
-    public RedisLock(String id){
-        this.id = id;
-    }
-
     private static String LOCK_KEY = "redis_lock";
 
     private static long timeout = 1000;
 
-    private SetParams setParams = SetParams.setParams().nx().px(10);
+    private SetParams setParams = SetParams.setParams().nx().px(100);
 
-    private final static  Jedis jedis=new JedisPool("106.13.13.244", 6379).getResource();
+    static JedisPool jedisPool = new JedisPool("106.13.13.244", 6379);
 
-    String s = jedis.auth("zj123456");
+    private static Jedis jedis;
+
+    static {
+        jedis=new JedisPool("106.13.13.244", 6379).getResource();
+        jedis.auth("zj123456");
+    }
 
     public  boolean Lock(String id){
         long start = System.currentTimeMillis();
@@ -36,10 +36,12 @@ public class RedisLock {
                 if(setex.equals("OK")){
                     return true;
                 }
+
                 long l = System.currentTimeMillis();
                 if(l-start>timeout){
                     return false;
                 }
+                Thread.sleep(500);
             }
         }catch (Exception e){
 
@@ -57,7 +59,12 @@ public class RedisLock {
                         "else" +
                         "   return 0 " +
                         "end";
-        Object eval = jedis.eval(script, Collections.singletonList(LOCK_KEY), Collections.singletonList(id));
-        return "1".equals(eval)?true:false;
+        try {
+            Object eval = jedis.eval(script, Collections.singletonList(LOCK_KEY), Collections.singletonList(id));
+            return "1".equals(eval)?true:false;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

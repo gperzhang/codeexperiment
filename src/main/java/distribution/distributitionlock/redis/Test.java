@@ -1,7 +1,11 @@
 package distribution.distributitionlock.redis;
 
 
-import java.util.UUID;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -15,25 +19,33 @@ public class Test {
     static RedisLock redisLock = new RedisLock();
 
     static ThreadPoolExecutor threadPoolExecutor =
-            new ThreadPoolExecutor(100,100, 0,TimeUnit.SECONDS,new LinkedBlockingQueue<>());
+            new ThreadPoolExecutor(100,100, 10L,TimeUnit.SECONDS,new LinkedBlockingQueue<>());
+
+
     public static void main(String[] args) {
+        Config config = new Config();
+        config.useSingleServer().setAddress("redis://106.13.13.244:6379").setPassword("zj123456");
+        RedissonClient client = Redisson.create(config);
+        RLock lock1 = client.getLock("lock1");
+
         for (int i=0;i<100;i++){
             threadPoolExecutor.execute(()->{
-//                String id = UUID.randomUUID().toString();
-                redisLock.Lock(UUID.randomUUID().toString());
+                lock1.lock();
                 inventory--;
-                redisLock.unLock(UUID.randomUUID().toString());
                 count.countDown();
+                System.out.println(count.getCount());
+                lock1.unlock();
+
             });
-
         }
-
         try {
             count.await();
-            System.out.println("扣减完毕，剩余库存为"+inventory);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("扣减完毕，剩余库存为"+inventory);
+
         threadPoolExecutor.shutdown();
     }
 }

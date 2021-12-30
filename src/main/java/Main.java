@@ -26,7 +26,7 @@ public class Main {
 
         Map<Integer,Integer> map = new HashMap<>();
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            System.out.println(entry);
+            System.out.println(entry+"----");
         }
 
 
